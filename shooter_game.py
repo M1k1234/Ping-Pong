@@ -1,4 +1,3 @@
-
 from random import randint
 from pygame import *
 
@@ -43,17 +42,10 @@ window = display.set_mode((700,500))
 display.set_caption('Ping-Pong')
 background = 149, 186, 177
 
+plR= Player ('palka.jpg',33,250, 20,70, 10)
+plL= Player ('palka.jpg',33,250, 20,70, 10)
 
-font.init()
-font2 = font.SysFont('Arial', 36)
-
-font.init()
-font3 = font.SysFont('Arial',50)
-
-font.init()
-font=font.SysFont('Arial',70)
-lose = font.render('YOU LOOOOOOOOSE!!!!!',True,(255,0,0))
-
+ball= GameSprite('ball.png',350,250,25,25,12)
 
 game=True
 finish=False
@@ -63,10 +55,16 @@ FPS =90
 
 
 while game:
+    for e in event.get():
+        if e.type ==QUIT:
+            game=False
                
     if not finish:
 
         window.fill(background)
+        window.blit(plR)
+        window.blit(plL)
+        window.blit(ball)
         
 
     
