@@ -45,12 +45,21 @@ background = 149, 186, 177
 plL= Player ('palka.jpg',667,250, 20,70, 10)
 plR= Player ('palka.jpg',33,250, 20,70, 10)
 
-ball= GameSprite('ball.png',350,250,40,40,12)
+ball= GameSprite('ball.png',330,250,40,40,12)
 
 game=True
 finish=False
 clock = time.Clock()
 FPS =90
+
+speed_y = 2
+speed_x = 2
+
+
+font.init()
+font=font.Font(None,36)
+LoseR=font.render('Проиграл правый!!!',True,(236, 27, 46))
+LoseL=font.render('Проиграл левый!!!',True,(236, 27, 46))
 
 
 
@@ -63,6 +72,31 @@ while game:
 
         window.fill(background)
 
+
+        ball.rect.y += speed_y
+        ball.rect.x += speed_x
+
+        if ball.rect.y > 450 or ball.rect.y < 0:
+            speed_y *= -1
+            
+        if sprite.collide_rect(plR, ball) or sprite.collide_rect(plL, ball):
+            speed_y *= 1
+            speed_x *= -1
+
+        if ball.rect.x >650:
+            window.blit(LoseR,(250,250))
+            game=True
+            finish=True
+
+           
+        if ball.rect.x <0:
+            window.blit(LoseL,(250,250))
+            game=True
+            finish=True
+           
+
+
+    
 
         plR.update_r()
         plL.update_l()
